@@ -1,5 +1,89 @@
 version: '3'
 services:
+    main_service:
+        build:
+            context: Service-master
+            dockerfile: Dockerfile
+        ports:
+            - "8080:8080"
+        depends_on: 
+            - accounts_serivce
+            - products_service
+            - baskets_service
+            - orders_service
+    
+    accounts_serivce:
+        build:
+          context: Accounts-master
+          dockerfile: Dockerfile
+        ports:
+          - "8081:8081"
+        restart: always
+        depends_on: 
+          - mysql_accounts 
+        environment:
+          RDS_HOSTNAME: mysql_accounts
+          RDS_PORT: 3306
+          RDS_DB_NAME: db_accounts
+          RDS_USERNAME: springuser
+          RDS_PASSWORD: Password
+        networks:
+            - accounts-service-network
+
+    products_service:
+        build:
+          context: Products-master
+          dockerfile: Dockerfile
+        ports:
+          - "8084:8084"
+        restart: always
+        depends_on: 
+          - mysql_products 
+        environment:
+          RDS_HOSTNAME: mysql_products
+          RDS_PORT: 3306
+          RDS_DB_NAME: db_products
+          RDS_USERNAME: springuser
+          RDS_PASSWORD: Password
+        networks:
+            - products-service-network
+
+    baskets_service:
+        build:
+            context: Baskets-master
+            dockerfile: Dockerfile
+        ports:
+            - "8082:8082"
+        restart: always
+        depends_on: 
+            - mysql_baskets 
+        environment:
+            RDS_HOSTNAME: mysql_baskets
+            RDS_PORT: 3306
+            RDS_DB_NAME: db_baskets
+            RDS_USERNAME: springuser
+            RDS_PASSWORD: Password
+        networks:
+            - baskets-service-network
+
+    orders_service:
+        build:
+            context: Orders-master
+            dockerfile: Dockerfile
+        ports:
+            - "8083:8083"
+        restart: always
+        depends_on: 
+            - mysql_orders 
+        environment:
+            RDS_HOSTNAME: mysql_orders
+            RDS_PORT: 3306
+            RDS_DB_NAME: db_orders
+            RDS_USERNAME: springuser
+            RDS_PASSWORD: Password
+        networks:
+            - orders-service-network
+        
     mysql_accounts:
         image: mysql:5.7
         environment: 
@@ -23,10 +107,10 @@ services:
             MYSQL_USER: springuser
             MYSQL_PASSWORD: Password
             MYSQL_DATABASE: db_products
-        container_name: 'mysql_products'
+        container_name: mysql_products
         restart: always
         ports: 
-            - 3307:3306
+            - "3307:3306"
         volumes:
             - mysql-dbproducts-volume:/var/lib/mysql
         networks:
@@ -42,7 +126,7 @@ services:
         container_name: 'mysql_baskets'
         restart: always
         ports: 
-            - 3308:3306
+            - "3308:3306"
         volumes:
             - mysql-dbbaskets-volume:/var/lib/mysql
         networks:
