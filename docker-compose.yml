@@ -1,0 +1,82 @@
+version: '3'
+services:
+    mysql_accounts:
+        image: mysql:5.7
+        environment: 
+            MYSQL_ROOT_PASSWORD: Password
+            MYSQL_USER: springuser
+            MYSQL_PASSWORD: Password
+            MYSQL_DATABASE: db_accounts
+        container_name: mysql_accounts
+        restart: always
+        ports:
+            - "3306:3306"
+        volumes:
+            - mysql-dbaccounts-volume:/var/lib/mysql
+        networks:
+            - accounts-service-network
+
+    mysql_products:
+        image: mysql:5.7
+        environment: 
+            MYSQL_ROOT_PASSWORD: Password
+            MYSQL_USER: springuser
+            MYSQL_PASSWORD: Password
+            MYSQL_DATABASE: db_products
+        container_name: 'mysql_products'
+        restart: always
+        ports: 
+            - 3307:3306
+        volumes:
+            - mysql-dbproducts-volume:/var/lib/mysql
+        networks:
+            - products-service-network
+
+    mysql_baskets:
+        image: mysql:5.7
+        environment: 
+            MYSQL_ROOT_PASSWORD: Password
+            MYSQL_USER: springuser
+            MYSQL_PASSWORD: Password
+            MYSQL_DATABASE: db_baskets
+        container_name: 'mysql_baskets'
+        restart: always
+        ports: 
+            - 3308:3306
+        volumes:
+            - mysql-dbbaskets-volume:/var/lib/mysql
+        networks:
+            - baskets-service-network
+
+    mysql_orders:
+        image: mysql:5.7
+        environment: 
+            MYSQL_ROOT_PASSWORD: Password
+            MYSQL_USER: springuser
+            MYSQL_PASSWORD: Password
+            MYSQL_DATABASE: db_orders
+        container_name: 'mysql_orders'
+        restart: always
+        ports: 
+            - 3309:3306
+        volumes:
+            - mysql-dborders-volume:/var/lib/mysql
+        networks:
+            - orders-service-network
+
+volumes:
+    mysql-dbaccounts-volume:
+    mysql-dbproducts-volume:
+    mysql-dbbaskets-volume:
+    mysql-dborders-volume:
+
+networks:
+    accounts-service-network:
+    products-service-network:
+    baskets-service-network:
+    orders-service-network:
+
+
+    
+
+
