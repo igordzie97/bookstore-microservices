@@ -30,7 +30,7 @@ jobs:
       uses: docker/login-action@v1
       with:
         username: konrad.makuch@gmail.com
-        password: U3%=!$ff]b+RY?P
+        password: a566bb21-a258-4b12-976d-484c19d2912b
     - name: Build and push
       uses: docker/build-push-action@v2
       with:
