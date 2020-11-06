@@ -34,8 +34,8 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v2
       with:
-        context: ./Accounts-master/
-        file: ./Dockerfile
+        context: .
+        file: Accounts-master/Dockerfile
         pull: true
         push: true
         cache-from: type=registry,ref=konradmaku/bookstory:latest
