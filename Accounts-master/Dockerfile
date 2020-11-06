@@ -6,16 +6,13 @@
 
 
 
-FROM maven:3.6.3-jdk-11-slim as target
-WORKDIR /build
-COPY src/ /build/src/
-COPY pom.xml .
-RUN mvn -B -f pom.xml dependency:resolve
-COPY . .
-RUN mvn -B -s package -DskipTests
-RUN file="$(ls -1 /build/target)" && echo $file
-
-FROM openjdk:11-jdk
+FROM maven:3.6.3-jdk-11-slim AS build
+RUN mkdir -p /workspace
+WORKDIR /workspace
+COPY pom.xml /workspace
+COPY src /workspace/src
+RUN mvn -B -f pom.xml clean package -DskipTests 
+FROM openjdk:11-jdk-slim
+COPY --from=build /workspace/target/*.jar app.jar
 EXPOSE 8081
-CMD exec java $JAVA_OPTS -jar /app/my-app.jar
-COPY /target/accounts_service.jar /app/my-app.jar
+ENTRYPOINT ["java","-jar","app.jar"]
