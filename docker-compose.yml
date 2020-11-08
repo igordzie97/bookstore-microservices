@@ -1,6 +1,7 @@
 version: '3'
 services:
     eureka-service:
+        container_name: eureka-service
         build:
             context: Eureka-server
             dockerfile: Dockerfile
@@ -11,13 +12,14 @@ services:
             - eureka-network
 
     main-service:
+        container_name: main-service
         build:
             context: Service-master
             dockerfile: Dockerfile
         ports:
             - "9090:9090"
         depends_on:
-            - accounts-serivce
+            - accounts-service
             - products-service
             - baskets-service
             - orders-service
@@ -27,7 +29,8 @@ services:
         networks:
             - eureka-network
 
-    accounts-serivce:
+    accounts-service:
+        container_name: accounts-service
         build:
             context: Accounts-master
             dockerfile: Dockerfile
@@ -35,10 +38,10 @@ services:
             - "8081:8081"
         restart: always
         depends_on:
-            - mysql_accounts
+            - mysql-accounts
             - eureka-service
         environment:
-            RDS_HOSTNAME: mysql_accounts
+            RDS_HOSTNAME: mysql-accounts
             RDS_PORT: 3306
             RDS_DB_NAME: db_accounts
             RDS_USERNAME: springuser
@@ -50,6 +53,7 @@ services:
             - eureka-network
 
     products-service:
+        container_name: products-service
         build:
             context: Products-master
             dockerfile: Dockerfile
@@ -57,10 +61,10 @@ services:
             - "8084:8084"
         restart: always
         depends_on:
-            - mysql_products
+            - mysql-products
             - eureka-service
         environment:
-            RDS_HOSTNAME: mysql_products
+            RDS_HOSTNAME: mysql-products
             RDS_PORT: 3306
             RDS_DB_NAME: db_products
             RDS_USERNAME: springuser
@@ -72,6 +76,7 @@ services:
             - eureka-network
 
     baskets-service:
+        container_name: baskets-service
         build:
             context: Baskets-master
             dockerfile: Dockerfile
@@ -79,9 +84,9 @@ services:
             - "8082:8082"
         restart: always
         depends_on:
-            - mysql_baskets
+            - mysql-baskets
         environment:
-            RDS_HOSTNAME: mysql_baskets
+            RDS_HOSTNAME: mysql-baskets
             RDS_PORT: 3306
             RDS_DB_NAME: db_baskets
             RDS_USERNAME: springuser
@@ -93,6 +98,7 @@ services:
             - eureka-network
 
     orders-service:
+        container_name: orders-service
         build:
             context: Orders-master
             dockerfile: Dockerfile
@@ -100,9 +106,9 @@ services:
             - "8083:8083"
         restart: always
         depends_on:
-            - mysql_orders
+            - mysql-orders
         environment:
-            RDS_HOSTNAME: mysql_orders
+            RDS_HOSTNAME: mysql-orders
             RDS_PORT: 3306
             RDS_DB_NAME: db_orders
             RDS_USERNAME: springuser
@@ -113,7 +119,7 @@ services:
             - orders-service-network
             - eureka-network
 
-    mysql_accounts:
+    mysql-accounts:
         image: mysql:5.7
         environment:
             MYSQL_ROOT_PASSWORD: Password
@@ -121,7 +127,7 @@ services:
             MYSQL_PASSWORD: Password
             MYSQL_DATABASE: db_accounts
 
-        container_name: mysql_accounts
+        container_name: mysql-accounts
         restart: always
         ports:
             - "3307:3306"
@@ -130,14 +136,14 @@ services:
         networks:
             - accounts-service-network
 
-    mysql_products:
+    mysql-products:
         image: mysql:5.7
         environment:
             MYSQL_ROOT_PASSWORD: Password
             MYSQL_USER: springuser
             MYSQL_PASSWORD: Password
             MYSQL_DATABASE: db_products
-        container_name: mysql_products
+        container_name: mysql-products
         restart: always
         ports:
             - "3308:3306"
@@ -146,14 +152,14 @@ services:
         networks:
             - products-service-network
 
-    mysql_baskets:
+    mysql-baskets:
         image: mysql:5.7
         environment:
             MYSQL_ROOT_PASSWORD: Password
             MYSQL_USER: springuser
             MYSQL_PASSWORD: Password
             MYSQL_DATABASE: db_baskets
-        container_name: 'mysql_baskets'
+        container_name: 'mysql-baskets'
         restart: always
         ports:
             - "3309:3306"
@@ -162,14 +168,14 @@ services:
         networks:
             - baskets-service-network
 
-    mysql_orders:
+    mysql-orders:
         image: mysql:5.7
         environment:
             MYSQL_ROOT_PASSWORD: Password
             MYSQL_USER: springuser
             MYSQL_PASSWORD: Password
             MYSQL_DATABASE: db_orders
-        container_name: 'mysql_orders'
+        container_name: 'mysql-orders'
         restart: always
         ports:
             - 3310:3306
@@ -190,8 +196,3 @@ networks:
     baskets-service-network:
     orders-service-network:
     eureka-network:
-
-
-    
-
-
