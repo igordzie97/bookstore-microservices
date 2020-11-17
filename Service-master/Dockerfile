@@ -8,9 +8,9 @@
 #RUN file="$(ls -1 /build/target)" && echo $file
 
 FROM openjdk:11-jre-slim-buster
-EXPOSE 8080
-CMD exec java $JAVA_OPTS -jar /app/my-app.jar
-COPY /target/service.jar /app/my-app.jar
+EXPOSE 9090
+ADD /target/gateway_service.jar /app/gateway_service.jar
+ENTRYPOINT [ "sh", "-c", "java -jar /app/gateway_service.jar" ]
 
 #FROM openjdk:11-jdk
 #EXPOSE 8080

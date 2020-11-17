@@ -12,8 +12,7 @@
 #ADD target/eureka-0.0.1-SNAPSHOT.jar /bookstore/eurekaService/
 #ENTRYPOINT ["sh", "-c", "java -jar /bookstore/eurekaService/eureka-0.0.1-SNAPSHOT.jar "]
 
-
 FROM openjdk:11-jre-slim-buster
-
-CMD exec java $JAVA_OPTS -jar /app/my-app.jar
-COPY /target/eureka_service.jar /app/my-app.jar
+EXPOSE 8761
+ADD /target/eureka_service.jar /app/eureka_service.jar
+ENTRYPOINT [ "sh", "-c", "java -jar /app/eureka_service.jar" ]

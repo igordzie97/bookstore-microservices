@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ProductsController {
-
-
     @GetMapping("/product")
     String test() {
         return "to jest response z product service /product";

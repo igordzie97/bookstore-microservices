@@ -2,9 +2,10 @@ version: '3'
 services:
     eureka-service:
         container_name: eureka-service
-        build:
-            context: Eureka-server
-            dockerfile: Dockerfile
+        image: bookstore/eureka_service:latest
+        # build:
+        #     context: Eureka-server
+        #     dockerfile: Dockerfile
         ports:
             - "8761:8761"
         restart: always
@@ -13,9 +14,10 @@ services:
 
     main-service:
         container_name: main-service
-        build:
-            context: Service-master
-            dockerfile: Dockerfile
+        image: bookstore/gateway_service:latest
+        # build:
+        #     context: Service-master
+        #     dockerfile: Dockerfile
         ports:
             - "9090:9090"
         depends_on:
@@ -31,9 +33,10 @@ services:
 
     accounts-service:
         container_name: accounts-service
-        build:
-            context: Accounts-master
-            dockerfile: Dockerfile
+        image: bookstore/accounts_service:latest
+        # build:
+        #     context: Accounts-master
+        #     dockerfile: Dockerfile
         ports:
             - "8081:8081"
         restart: always
@@ -54,9 +57,10 @@ services:
 
     products-service:
         container_name: products-service
-        build:
-            context: Products-master
-            dockerfile: Dockerfile
+        image: bookstore/products_service:latest
+        # build:
+        #     context: Products-master
+        #     dockerfile: Dockerfile
         ports:
             - "8084:8084"
         restart: always
@@ -77,9 +81,10 @@ services:
 
     baskets-service:
         container_name: baskets-service
-        build:
-            context: Baskets-master
-            dockerfile: Dockerfile
+        image: bookstore/baskets_service:latest
+        # build:
+        #     context: Baskets-master
+        #     dockerfile: Dockerfile
         ports:
             - "8082:8082"
         restart: always
@@ -99,9 +104,10 @@ services:
 
     orders-service:
         container_name: orders-service
-        build:
-            context: Orders-master
-            dockerfile: Dockerfile
+        image: bookstore/orders_service:latest
+        # build:
+        #     context: Orders-master
+        #     dockerfile: Dockerfile
         ports:
             - "8083:8083"
         restart: always

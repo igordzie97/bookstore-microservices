@@ -9,8 +9,8 @@
 
 FROM openjdk:11-jre-slim-buster
 EXPOSE 8084
-CMD exec java $JAVA_OPTS -jar /app/my-app.jar
-COPY /target/products_service.jar /app/my-app.jar
+ADD /target/products_service.jar /app/products_service.jar
+ENTRYPOINT [ "sh", "-c", "java -jar /app/products_service.jar" ]
 
 #FROM openjdk:11-jdk
 #EXPOSE 8084
