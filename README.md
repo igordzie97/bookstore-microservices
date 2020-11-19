@@ -1,4 +1,4 @@
-# bookStore
+# Book Store
 Authors: Adrian Nędza, Igor Dzierwa, Konrad Makuch\
 
 mvn clean package -DskipTests
