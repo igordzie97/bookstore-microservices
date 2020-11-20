@@ -6,9 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="bookstoreBaskets-master" />
         <module name="bookstoreOrders-master" />
+        <module name="bookstoreBaskets-master" />
+        <module name="bookstoreGateway-master" />
         <module name="bookstoreEureka-master" />
+        <module name="eureka" />
         <module name="bookstoreService" />
         <module name="bookstoreAccounts-master" />
         <module name="bookstoreProducts-master" />
@@ -18,9 +20,11 @@
       <module name="bookstoreAccounts-master" target="11" />
       <module name="bookstoreBaskets-master" target="1.8" />
       <module name="bookstoreEureka-master" target="11" />
+      <module name="bookstoreGateway-master" target="11" />
       <module name="bookstoreOrders-master" target="11" />
       <module name="bookstoreProducts-master" target="11" />
       <module name="bookstoreService" target="11" />
+      <module name="eureka" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -28,9 +32,11 @@
       <module name="bookstoreAccounts-master" options="-parameters" />
       <module name="bookstoreBaskets-master" options="-parameters" />
       <module name="bookstoreEureka-master" options="-parameters" />
+      <module name="bookstoreGateway-master" options="-parameters" />
       <module name="bookstoreOrders-master" options="-parameters" />
       <module name="bookstoreProducts-master" options="-parameters" />
       <module name="bookstoreService" options="-parameters" />
+      <module name="eureka" options="-parameters" />
     </option>
   </component>
 </project>

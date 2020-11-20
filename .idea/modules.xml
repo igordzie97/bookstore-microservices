@@ -5,9 +5,11 @@
       <module fileurl="file://$PROJECT_DIR$/Accounts-master/bookstoreAccounts-master.iml" filepath="$PROJECT_DIR$/Accounts-master/bookstoreAccounts-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baskets-master/bookstoreBaskets-master.iml" filepath="$PROJECT_DIR$/Baskets-master/bookstoreBaskets-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/Eureka-server/bookstoreEureka-master.iml" filepath="$PROJECT_DIR$/Eureka-server/bookstoreEureka-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Service-master/bookstoreGateway-master.iml" filepath="$PROJECT_DIR$/Service-master/bookstoreGateway-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/Orders-master/bookstoreOrders-master.iml" filepath="$PROJECT_DIR$/Orders-master/bookstoreOrders-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/Products-master/bookstoreProducts-master.iml" filepath="$PROJECT_DIR$/Products-master/bookstoreProducts-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/Service-master/bookstoreService.iml" filepath="$PROJECT_DIR$/Service-master/bookstoreService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Eureka-server/eureka.iml" filepath="$PROJECT_DIR$/Eureka-server/eureka.iml" />
     </modules>
   </component>
 </project>
