@@ -1,3 +1,5 @@
 #Maven
 target/
 out/
+.idea/
+.github/
