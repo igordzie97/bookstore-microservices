@@ -1,4 +1,4 @@
-package com.agh.bookstoreGatewaymaster.Swagger;
+package com.agh.maingateway.Swagger;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Primary;
@@ -16,17 +16,17 @@ public class DocumentationController implements SwaggerResourcesProvider {
     @Override
     public List<SwaggerResource> get() {
         List<SwaggerResource> resources = new ArrayList<>();
-        resources.add(swaggerResource("accounts-service"));
-        resources.add(swaggerResource("baskets-service"));
-        resources.add(swaggerResource("products-service"));
-        resources.add(swaggerResource("orders-service"));
+        resources.add(swaggerResource("accounts-service", "/accounts-service/v2/api-docs"));
+        resources.add(swaggerResource("baskets-service", "/baskets-service/v2/api-docs"));
+        resources.add(swaggerResource("products-service", "/products-service/v2/api-docs"));
+        resources.add(swaggerResource("orders-service", "/orders-service/v2/api-docs"));
         return resources;
     }
 
-    private SwaggerResource swaggerResource(String name) {
+    private SwaggerResource swaggerResource(String name, String location) {
         SwaggerResource swaggerResource = new SwaggerResource();
         swaggerResource.setName(name);
-        swaggerResource.setLocation("/v2/api-docs"); //TODO: ustawić endpointy
+        swaggerResource.setLocation(location);
         swaggerResource.setSwaggerVersion("2.0");
         return swaggerResource;
     }

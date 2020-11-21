@@ -29,7 +29,8 @@ przykładowe:
   "/accounts-service/logged/**" - musi być user
    "/accounts-service/**"- niezalogowani
 
-
+#SWAGGER
+http://localhost:9091/swagger-ui.html - jeden endpoint dla wszystkich serwisów
 
 
 # gatewayService - na razie nie używamy
