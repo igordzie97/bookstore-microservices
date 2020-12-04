@@ -20,6 +20,7 @@ public class DocumentationController implements SwaggerResourcesProvider {
         resources.add(swaggerResource("baskets-service", "/baskets-service/v2/api-docs"));
         resources.add(swaggerResource("products-service", "/products-service/v2/api-docs"));
         resources.add(swaggerResource("orders-service", "/orders-service/v2/api-docs"));
+        resources.add(swaggerResource("storage-service", "/storage-service/v2/api-docs"));
         return resources;
     }
 

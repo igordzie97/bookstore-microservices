@@ -52,11 +52,12 @@ public class UserRestController {
         return "user added";
     }
 
-    //TEST SESSION
-    @RequestMapping(value = "/logged/session", method = RequestMethod.GET)
+    @RequestMapping(value = "/logged/sessionRoles", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Set<String>> currentUserNameSimple(HttpServletRequest request) {
-        String header = request.getHeader(jwtConfig.getHeader());
+    public LoggedUserDTO currentUserNameSimple(@RequestParam String header) {
+        log.info(header);
+        LoggedUserDTO loggedUserDTO = new LoggedUserDTO();
+
         String token = header.replace(jwtConfig.getPrefix(), "");
         try {
             Claims claims = Jwts.parser()
@@ -65,18 +66,57 @@ public class UserRestController {
                     .getBody();
 
             String username = claims.getSubject();
-
+            log.info(username);
+            log.info("claims, {}", claims);
             if(username != null) {
                 @SuppressWarnings("unchecked")
                 List<String> authorities = (List<String>) claims.get("authorities");
                 Set<String> roles = authorities.stream().collect(Collectors.toSet());
-                return ResponseEntity.ok(roles);
+                log.info("{}", roles);
+                Long userid = userRepository.findByUsername(claims.getSubject()).getId();
+                loggedUserDTO.setRoles(roles);
+                loggedUserDTO.setUser_id(userid);
+
+                return loggedUserDTO;
             }
         } catch (Exception e) {
+            log.info("ERror" + e.getMessage());
+            return null;
+        }
+        return null;
+    }
+
+
+    //TEST SESSION
+    @RequestMapping(value = "/logged/session", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity currentUserNameSimple(HttpServletRequest request) {
+        String header = request.getHeader(jwtConfig.getHeader());
+        return getResponseSession(header);
+    }
+
+    private ResponseEntity getResponseSession(String header) {
+        String token = header.replace(jwtConfig.getPrefix(), "");
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(jwtConfig.getSecret().getBytes())
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            String username = claims.getSubject();
+            log.info(username);
+            if(username != null) {
+                @SuppressWarnings("unchecked")
+                List<String> authorities = (List<String>) claims.get("authorities");
+                Set<String> roles = authorities.stream().collect(Collectors.toSet());
+                log.info("{}", roles);
+                return ResponseEntity.status(HttpStatus.OK).body(roles);
+            }
+        } catch (Exception e) {
+            log.info("ERror" + e.getMessage());
             return (ResponseEntity<Set<String>>) ResponseEntity.ok();
         }
         return null;
-
     }
 
     //getID

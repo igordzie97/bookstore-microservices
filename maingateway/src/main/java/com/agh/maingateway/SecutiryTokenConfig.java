@@ -35,7 +35,8 @@ public class SecutiryTokenConfig extends WebSecurityConfigurerAdapter {
             "/accounts-service/v2/api-docs",
             "/baskets-service/v2/api-docs",
             "/products-service/v2/api-docs",
-            "/orders-service/v2/api-docs"
+            "/orders-service/v2/api-docs",
+            "/storage-service/v2/api-docs"
             // other public endpoints of your API may be appended to this array
     };
 
@@ -48,6 +49,13 @@ public class SecutiryTokenConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/accounts-service/logged/test_tylko_admin").hasAuthority("admin")
                 .antMatchers("/accounts-service/logged/**").hasAuthority("user")
+
+                //TESTOWO ALL DOSTĘP
+                .antMatchers("/accounts-service/**").permitAll()
+                .antMatchers("/products-service/**").permitAll()
+                .antMatchers("/orders-service/**").permitAll()
+                .antMatchers("/storage-service/**").permitAll()
+                .antMatchers("/baskets-service/**").permitAll()
                 .antMatchers("/accounts-service/**").permitAll()
 
                 .antMatchers("/orders-service/order").hasAuthority("admin")
