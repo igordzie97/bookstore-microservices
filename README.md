@@ -88,6 +88,15 @@ i po wykonaniu tej metody z zapisanym cookie
 
 reszta endpointów typu update i delete też działą - jeśli jest w swaggerze.
 
+# Cypress - testy aplikacji
+Do uruchomienia - w obrębie głównego folderu:
+1) pobrać potrzebne paczki - npm install
+2) uruchomić cypress - npm run open
+
+Accounts-service/Accounts.spec.js - podstawowe testy serwisu accounts.
+Products-service/Products.spec.js - podstawowe testy serwisu products.
+Baskets-Orders-service/Baskets-Orders.spec.js - podstawowe testy przepływu składania zamówienia (serwis baskets + orders).
+
 # gatewayService - na razie nie używamy
 ale zostawiam bo konfiguracja feign się może przydać
 localhost:9090/proxy/account - wywołanie przykładowej metody z serwisu accounts-service\
