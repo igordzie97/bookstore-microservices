@@ -93,8 +93,8 @@ Do uruchomienia - w obrębie głównego folderu:
 1) pobrać potrzebne paczki - npm install
 2) uruchomić cypress - npm run open
 
-Accounts-service/Accounts.spec.js - podstawowe testy serwisu accounts.
-Products-service/Products.spec.js - podstawowe testy serwisu products.
+Accounts-service/Accounts.spec.js - podstawowe testy serwisu accounts.\
+Products-service/Products.spec.js - podstawowe testy serwisu products.\
 Baskets-Orders-service/Baskets-Orders.spec.js - podstawowe testy przepływu składania zamówienia (serwis baskets + orders).
 
 # gatewayService - na razie nie używamy
