@@ -1,0 +1,51 @@
+[
+    {
+        "name": "Testing Book 1",
+        "length": "500",
+        "stock": 10,
+        "description": "testing book 1",
+        "category": "PRZYRODA"
+    },
+    {
+        "name": "Testing Book 2",
+        "length": "502",
+        "stock": 12,
+        "description": "testing book 2",
+        "category": "FANTASY"
+    },
+    {
+        "name": "Testing Book 3",
+        "length": "503",
+        "stock": 13,
+        "description": "testing book 3",
+        "category": "HISTORIA"
+    },
+    {
+        "name": "Testing Book 4",
+        "length": "504",
+        "stock": 14,
+        "description": "testing book 4",
+        "category": "BIOGRAFIA"
+    },
+    {
+        "name": "Testing Book 5",
+        "length": "505",
+        "stock": 15,
+        "description": "testing book 5",
+        "category": "DZIENNIK"
+    },
+    {
+        "name": "Testing Book 6",
+        "length": "506",
+        "stock": 16,
+        "description": "testing book 6",
+        "category": "KOMEDIA"
+    },
+    {
+        "name": "Testing Book 7",
+        "length": "507",
+        "stock": 17,
+        "description": "testing book 7",
+        "category": "TRAGEDIA"
+    }
+]

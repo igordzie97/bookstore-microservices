@@ -1,0 +1,10 @@
+{
+"env": {
+    "api_server": "http://localhost:9091",
+    "accounts_url": "/accounts-service/",
+    "products_url": "/products-service/",
+    "baskets_url": "/baskets-service/",
+    "orders_url": "/orders-service/"
+    }
+}
+

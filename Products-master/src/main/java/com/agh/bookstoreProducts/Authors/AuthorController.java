@@ -103,7 +103,7 @@ public class AuthorController {
 
 
     @PostMapping("/admin/author")
-    public ResponseEntity addAuthor(@ModelAttribute @RequestPart @Valid Author authorData, @RequestPart(name = "file") MultipartFile file) throws IOException {
+    public ResponseEntity addAuthor(@ModelAttribute @RequestPart @Valid Author authorData, @RequestPart(name = "file", required = false) MultipartFile file) throws IOException {
 
         log.info("Adding author with data: ", authorData);
 

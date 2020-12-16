@@ -36,7 +36,7 @@ public class BookController {
 
 
     @PostMapping("/admin/book")
-    public ResponseEntity addBook(@ModelAttribute @RequestPart Book bookData, @RequestPart(name = "file") MultipartFile file) throws IOException {
+    public ResponseEntity addBook(@ModelAttribute @RequestPart Book bookData, @RequestPart(name = "file", required = false) MultipartFile file) throws IOException {
         log.info("Adding book with data: ", bookData);
 
         Response resp = pictureService.handleFileUpload(file, "autor image");
@@ -57,7 +57,7 @@ public class BookController {
 
     @PutMapping("/admin/books/{id}")
     @ResponseBody
-    public ResponseEntity editBook(@ModelAttribute @RequestPart Book bookData, @RequestPart(name = "file") Optional<MultipartFile> file) throws IOException {
+    public ResponseEntity editBook(@ModelAttribute @RequestPart Book bookData, @RequestPart(name = "file", required = false) Optional<MultipartFile> file) throws IOException {
         Optional<Book> bookFromDb = repo.findById(bookData.getId());
         if (bookFromDb.isPresent()) {
             Book bookDb = bookFromDb.get();
