@@ -149,6 +149,12 @@ services:
             - storage-service-network
             - eureka-network
 
+    zipkin:
+        image: openzipkin/zipkin
+        container_name: zipkin
+        ports:
+            - 9411:9411
+
     mysql-accounts:
         image: mysql:5.7
         environment:
