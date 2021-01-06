@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 services:
     eureka-service:
         container_name: eureka-service
@@ -20,6 +20,11 @@ services:
             dockerfile: Dockerfile
         ports:
             - "9091:9091"
+        volumes:
+          - type: bind
+            source: ./logstash/logs/maingateway-service.log
+            target: /maingateway-service.log
+            read_only: false
         depends_on:
             - accounts-service
             - products-service
@@ -51,7 +56,11 @@ services:
             RDS_USERNAME: springuser
             RDS_PASSWORD: Password
             EUREKA_ADDR: eureka-service
-
+        volumes:
+          - type: bind
+            source: ./logstash/logs/accounts-service.log
+            target: /accounts-service.log
+            read_only: false
         networks:
             - accounts-service-network
             - eureka-network
@@ -75,7 +84,11 @@ services:
             RDS_USERNAME: springuser
             RDS_PASSWORD: Password
             EUREKA_ADDR: eureka-service
-
+        volumes:
+          - type: bind
+            source: ./logstash/logs/products-service.log
+            target: /products-service.log
+            read_only: false
         networks:
             - products-service-network
             - eureka-network
@@ -98,7 +111,11 @@ services:
             RDS_USERNAME: springuser
             RDS_PASSWORD: Password
             EUREKA_ADDR: eureka-service
-
+        volumes:
+          - type: bind
+            source: ./logstash/logs/baskets-service.log
+            target: /baskets-service.log
+            read_only: false
         networks:
             - baskets-service-network
             - eureka-network
@@ -121,7 +138,11 @@ services:
             RDS_USERNAME: springuser
             RDS_PASSWORD: Password
             EUREKA_ADDR: eureka-service
-
+        volumes:
+          - type: bind
+            source: ./logstash/logs/orders-service.log
+            target: /orders-service.log
+            read_only: false
         networks:
             - orders-service-network
             - eureka-network
@@ -144,7 +165,11 @@ services:
             RDS_USERNAME: springuser
             RDS_PASSWORD: Password
             EUREKA_ADDR: eureka-service
-
+        volumes:
+          - type: bind
+            source: ./logstash/logs/storage-service.log
+            target: /storage-service.log
+            read_only: false
         networks:
             - storage-service-network
             - eureka-network
@@ -237,12 +262,80 @@ services:
         networks:
             - storage-service-network
 
+    #ELK
+    elasticsearch:
+      container_name: elasticsearch
+      image: elasticsearch:7.10.1
+      volumes:
+        - type: bind
+          source: ./elasticsearch/config/elasticsearch.yml
+          target: /usr/share/elasticsearch/config/elasticsearch.yml
+          read_only: true
+        - type: volume
+          source: elasticsearch
+          target: /usr/share/elasticsearch/data
+      ports:
+        - "9200:9200"
+        - "9300:9300"
+      environment:
+        ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+        ELASTIC_PASSWORD: password
+        # Use single node discovery in order to disable production mode and avoid bootstrap checks.
+        # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
+        discovery.type: single-node
+      networks:
+        - elk
+
+    logstash:
+      container_name: logstash
+      image: logstash:7.10.1
+      volumes:
+        - type: bind
+          source: ./logstash/config/logstash.yml
+          target: /usr/share/logstash/config/logstash.yml
+          read_only: true
+        - type: bind
+          source: ./logstash/pipeline
+          target: /usr/share/logstash/pipeline
+          read_only: true
+        - type: bind
+          source: ./logstash/logs
+          target: /usr/share/logstash/logs
+          read_only: true
+      ports:
+        - "5044:5044"
+        - "5000:5000/tcp"
+        - "5000:5000/udp"
+        - "9600:9600"
+      environment:
+        LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      networks:
+        - elk
+      depends_on:
+        - elasticsearch
+
+    kibana:
+      container_name: kibana
+      image: kibana:7.10.1
+      volumes:
+        - type: bind
+          source: ./kibana/config/kibana.yml
+          target: /usr/share/kibana/config/kibana.yml
+          read_only: true
+      ports:
+        - "5601:5601"
+      networks:
+        - elk
+      depends_on:
+        - elasticsearch
+
 volumes:
     mysql-dbaccounts-volume:
     mysql-dbproducts-volume:
     mysql-dbbaskets-volume:
     mysql-dborders-volume:
     mysql-dbstorage-volume:
+    elasticsearch:
 
 networks:
     accounts-service-network:
@@ -251,3 +344,5 @@ networks:
     orders-service-network:
     storage-service-network:
     eureka-network:
+    elk:
+      driver: bridge
