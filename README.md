@@ -3,6 +3,15 @@ Authors: Adrian Nędza, Igor Dzierwa, Konrad Makuch\
 
 mvn clean package -DskipTests
 
+#ZIPKIN: 
+jeśli chcemy uruchomić bez docker compose:
+robimy docker run -d -p 9411:9411 openzipkin/zipkin
+zipkin odpala się na localhost:9411
+odpalamy wszystkie serwisy i w zipkinie widzimy logi związane z odpytywaniem poszczególnych serwerów, 
+trzeba wywołać jakaś akcję, np rejestrację, potem w zipkin kliknąć "run query" i powinno się coś pojawić
+dodane też do docker-compose - jak odpalimy całość to zipkin też się odpali w dockerze.
+
+
 #maingateway: localhost:9091
 nowy gateway któy działa tak jak poprzedni z tym że w miarę dobrze
 
