@@ -20,6 +20,10 @@ public class BookstoreAccountsApplication {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+	@Bean
+	public JwtConfig jwtConfig() {
+		return new JwtConfig();
+	}
     public static void main(String[] args) {
         SpringApplication.run(BookstoreAccountsApplication.class, args);
     }
