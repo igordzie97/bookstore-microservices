@@ -2,7 +2,7 @@ version: '3.2'
 services:
     eureka-service:
         container_name: eureka-service
-        image: bookstore/eureka_service:latest
+        image: 127.0.0.1:4900/bookstore/eureka_service:latest
         build:
             context: Eureka-server
             dockerfile: Dockerfile
@@ -14,7 +14,7 @@ services:
 
     main-service:
         container_name: main-gateway
-        image: bookstore/gateway_service:latest
+        image: 127.0.0.1:4900/bookstore/gateway_service:latest
         build:
             context: maingateway
             dockerfile: Dockerfile
@@ -39,7 +39,7 @@ services:
 
     accounts-service:
         container_name: accounts-service
-        image: bookstore/accounts_service:latest
+        image: 127.0.0.1:4900/bookstore/accounts_service:latest
         build:
             context: Accounts-master
             dockerfile: Dockerfile
@@ -67,7 +67,7 @@ services:
 
     products-service:
         container_name: products-service
-        image: bookstore/products_service:latest
+        image: 127.0.0.1:4900/bookstore/products_service:latest
         build:
             context: Products-master
             dockerfile: Dockerfile
@@ -95,7 +95,7 @@ services:
 
     baskets-service:
         container_name: baskets-service
-        image: bookstore/baskets_service:latest
+        image: 127.0.0.1:4900/bookstore/baskets_service:latest
         build:
             context: Baskets-master
             dockerfile: Dockerfile
@@ -122,7 +122,7 @@ services:
 
     orders-service:
         container_name: orders-service
-        image: bookstore/orders_service:latest
+        image: 127.0.0.1:4900/bookstore/orders_service:latest
         build:
             context: Orders-master
             dockerfile: Dockerfile
@@ -149,7 +149,7 @@ services:
 
     storage-service:
         container_name: storage-service
-        image: bookstore/storage_service:latest
+        image: 127.0.0.1:4900/bookstore/storage_service:latest
         build:
             context: storage_service
             dockerfile: Dockerfile
@@ -345,4 +345,3 @@ networks:
     storage-service-network:
     eureka-network:
     elk:
-      driver: bridge
