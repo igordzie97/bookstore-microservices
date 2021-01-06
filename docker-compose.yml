@@ -3,9 +3,9 @@ services:
     eureka-service:
         container_name: eureka-service
         image: bookstore/eureka_service:latest
-        # build:
-        #     context: Eureka-server
-        #     dockerfile: Dockerfile
+        build:
+            context: Eureka-server
+            dockerfile: Dockerfile
         ports:
             - "8761:8761"
         restart: always
@@ -13,19 +13,20 @@ services:
             - eureka-network
 
     main-service:
-        container_name: main-service
+        container_name: main-gateway
         image: bookstore/gateway_service:latest
-        # build:
-        #     context: Service-master
-        #     dockerfile: Dockerfile
+        build:
+            context: maingateway
+            dockerfile: Dockerfile
         ports:
-            - "9090:9090"
+            - "9091:9091"
         depends_on:
             - accounts-service
             - products-service
             - baskets-service
             - orders-service
             - eureka-service
+            - storage-service
         environment:
             EUREKA_ADDR: eureka-service
         networks:
@@ -34,9 +35,9 @@ services:
     accounts-service:
         container_name: accounts-service
         image: bookstore/accounts_service:latest
-        # build:
-        #     context: Accounts-master
-        #     dockerfile: Dockerfile
+        build:
+            context: Accounts-master
+            dockerfile: Dockerfile
         ports:
             - "8081:8081"
         restart: always
@@ -58,9 +59,9 @@ services:
     products-service:
         container_name: products-service
         image: bookstore/products_service:latest
-        # build:
-        #     context: Products-master
-        #     dockerfile: Dockerfile
+        build:
+            context: Products-master
+            dockerfile: Dockerfile
         ports:
             - "8084:8084"
         restart: always
@@ -82,9 +83,9 @@ services:
     baskets-service:
         container_name: baskets-service
         image: bookstore/baskets_service:latest
-        # build:
-        #     context: Baskets-master
-        #     dockerfile: Dockerfile
+        build:
+            context: Baskets-master
+            dockerfile: Dockerfile
         ports:
             - "8082:8082"
         restart: always
@@ -105,9 +106,9 @@ services:
     orders-service:
         container_name: orders-service
         image: bookstore/orders_service:latest
-        # build:
-        #     context: Orders-master
-        #     dockerfile: Dockerfile
+        build:
+            context: Orders-master
+            dockerfile: Dockerfile
         ports:
             - "8083:8083"
         restart: always
@@ -123,6 +124,29 @@ services:
 
         networks:
             - orders-service-network
+            - eureka-network
+
+    storage-service:
+        container_name: storage-service
+        image: bookstore/storage_service:latest
+        build:
+            context: storage_service
+            dockerfile: Dockerfile
+        ports:
+            - "8078:8078"
+        restart: always
+        depends_on:
+            - mysql-storage
+        environment:
+            RDS_HOSTNAME: mysql-storage
+            RDS_PORT: 3306
+            RDS_DB_NAME: db_storage
+            RDS_USERNAME: springuser
+            RDS_PASSWORD: Password
+            EUREKA_ADDR: eureka-service
+
+        networks:
+            - storage-service-network
             - eureka-network
 
     mysql-accounts:
@@ -190,15 +214,34 @@ services:
         networks:
             - orders-service-network
 
+    mysql-storage:
+        image: mysql:5.7
+        environment:
+            MYSQL_ROOT_PASSWORD: Password
+            MYSQL_USER: springuser
+            MYSQL_PASSWORD: Password
+            MYSQL_DATABASE: db_storage
+
+        container_name: mysql-storage
+        restart: always
+        ports:
+            - "3311:3306"
+        volumes:
+            - mysql-dbstorage-volume:/var/lib/mysql
+        networks:
+            - storage-service-network
+
 volumes:
     mysql-dbaccounts-volume:
     mysql-dbproducts-volume:
     mysql-dbbaskets-volume:
     mysql-dborders-volume:
+    mysql-dbstorage-volume:
 
 networks:
     accounts-service-network:
     products-service-network:
     baskets-service-network:
     orders-service-network:
+    storage-service-network:
     eureka-network:

@@ -1,19 +1,5 @@
-#FROM maven:3.6.3-jdk-11-slim as target
-#WORKDIR /build
-#COPY src/ /build/src/
-#COPY pom.xml .
-#RUN mvn -B -f pom.xml -s /usr/share/maven/ref/settings-docker.xml dependency:resolve
-#COPY . .
-#RUN mvn -B -s /usr/share/maven/ref/settings-docker.xml package -DskipTests
-#RUN file="$(ls -1 /build/target)" && echo $file
-
-FROM openjdk:11-jre-slim-buster
+FROM openjdk:11-jdk-slim
 EXPOSE 8083
-ADD /target/orders_service.jar /app/orders_service.jar
-ENTRYPOINT [ "sh", "-c", "java -jar /app/orders_service.jar" ]
-
-
-#FROM openjdk:11-jdk
-#EXPOSE 8083
-#ADD out/artifacts/bookstoreOrders_master_jar/ /bookstore/ordersService/
-#ENTRYPOINT ["sh", "-c", "java -jar /bookstore/ordersService/bookstoreOrders-master.jar"]
+COPY . app/
+RUN cd app; ./mvnw -Dmaven.test.skip package
+ENTRYPOINT ["java","-jar","/app/target/orders_service.jar"]
