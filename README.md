@@ -9,7 +9,7 @@ robimy docker run -d -p 9411:9411 openzipkin/zipkin
 
 zipkin odpala się na localhost:9411
 
-odpalamy wszystkie serwisy i w zipkinie widzimy logi związane z odpytywaniem poszczególnych serwerów, 
+odpalamy wszystkie serwisy i w zipkinie widzimy logi związane z odpytywaniem poszczególnych serwerów,
 
 trzeba wywołać jakaś akcję, np rejestrację, potem w zipkin kliknąć "run query" i powinno się coś pojawić
 
@@ -41,7 +41,7 @@ Autoryzacja, FormData
 
 w odpowiedzi dostajemy token Bearer
 który nalezy wykorzystywać do reqiestów
-(postman authorization bearer token) 
+(postman authorization bearer token)
 
 są zdefiniowane 4 role - admin, employee, user, notRegisteredUser - przyda się do składania zamówień jako "niezalogowany"
 
@@ -53,20 +53,20 @@ przykładowe:
  - "/accounts-service/logged/test_tylko_admin - musi byc admin
  - "/accounts-service/logged/**" - musi być user
  - "/accounts-service/**"- niezalogowani
-   
+
 
 pozostałe serwisy:
 aby przetestować wszystko co jest zrobione trzeba:  
 1. dodać autora   
-  
+
 **POST /products-service/admin/author FormData**
 - name
 - file
 - description
 - year
-- 
+-
 *2. dodać product (książkę)*
-  
+
 **POST /products-service/admin/book FormData**
 - name
 - author.id
@@ -75,13 +75,13 @@ aby przetestować wszystko co jest zrobione trzeba:
 - description
 - stock (ilosc w magazynie)
 - price
-- 
+-
 *3. stworzyć koszyk (hipotetycznie jeśli system by działał to przy pierwszym otwarciu strony wykonywalibysmy takie zapytanie o koszyk) - tworzy się w tym momenecie koszyk i dopisuje się Cookie z Id koszyka, które automatycznie jest dodawane do kolejnych requestów. No i jeśli mamy coś w koszyku to ta metoda zwraca aktualny stan koszyka - produkty + sumę.*
-  
+
 **GET /baskets-service/cart**
 
 *4. dodać do koszyka (książkę)*
-  
+
 **POST /baskets-service/cart/{ID PRODUKTU} **
 
 *5. odczytać koszyk albo usunąć produkt - Delete*
@@ -90,7 +90,7 @@ tutaj ważne - nie podajemy ID produktu z products-service tylko z baskets-servi
 
 *6. Złożyć zamówienie*
 **POST /orders-service/order/**
-i po wykonaniu tej metody z zapisanym cookie 
+i po wykonaniu tej metody z zapisanym cookie
 - sprawdzają sie stany magazynowe - czy można złożyć zamówienie
 - zapisuje się zamówienie
 - jeśli wykonamy tą metodę z dodanym Bearerem - to doda się paramter Mode:"User Zalogowany" do Order i z accounts-service pobierze się ID zalogowanego użytkownika i też doda się do zamówienia
@@ -110,9 +110,11 @@ Accounts-service/Accounts.spec.js - podstawowe testy serwisu accounts.\
 Products-service/Products.spec.js - podstawowe testy serwisu products.\
 Baskets-Orders-service/Baskets-Orders.spec.js - podstawowe testy przepływu składania zamówienia (serwis baskets + orders).
 
-# gatewayService - na razie nie używamy
-ale zostawiam bo konfiguracja feign się może przydać
-localhost:9090/proxy/account - wywołanie przykładowej metody z serwisu accounts-service\
-localhost:9090/proxy/basket - wywołanie przykładowej metody z serwisu baksets-service\
-localhost:9090/proxy/order - wywołanie przykładowej metody z serwisu orders-service\
-localhost:9090/proxy/product - wywołanie przykładowej metody z serwisu products-service
+# Docker Swarm - jak uruchomić
+1) `docker swarm init` - uruchamia master node swarma
+2) `docker service create --name registry --publish published=4900,target=5000 registry:2` - uruchomienie rejestru jako serwis na docker swarmie
+3) `docker-compose up -d` - tworzy i uruchamia wszystkie kontenery (ważne ze względu na tworzenie obrazów, które później zostaną "zpushowane" do swarma)
+4) `docker-compose down --volumes` - wyłączenie oraz usunięcie kontenerów
+5) `docker-compose push` - push kontenerów do swarma
+6) `docker stack deploy --compose-file docker-compose.yml bookstore` - deployment stacku do swarma
+7) `docker stack services bookstore` - tutaj można sprawdzić stan wszystkich serwisów
