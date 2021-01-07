@@ -54,5 +54,173 @@
         "description": "testing book 7",
         "price": 700,
         "category": "TRAGEDIA"
+    },
+    {
+        "name": "Testing Book 1",
+        "length": "500",
+        "stock": 10,
+        "description": "testing book 1",
+        "price": 100,
+        "category": "PRZYRODA"
+    },
+    {
+        "name": "Testing Book 2",
+        "length": "502",
+        "stock": 12,
+        "description": "testing book 2",
+        "price": 200,
+        "category": "FANTASY"
+    },
+    {
+        "name": "Testing Book 3",
+        "length": "503",
+        "stock": 13,
+        "description": "testing book 3",
+        "price": 300,
+        "category": "HISTORIA"
+    },
+    {
+        "name": "Testing Book 4",
+        "length": "504",
+        "stock": 14,
+        "description": "testing book 4",
+        "price": 400,
+        "category": "BIOGRAFIA"
+    },
+    {
+        "name": "Testing Book 5",
+        "length": "505",
+        "stock": 15,
+        "description": "testing book 5",
+        "price": 500,
+        "category": "DZIENNIK"
+    },
+    {
+        "name": "Testing Book 6",
+        "length": "506",
+        "stock": 16,
+        "description": "testing book 6",
+        "price": 600,
+        "category": "KOMEDIA"
+    },
+    {
+        "name": "Testing Book 7",
+        "length": "507",
+        "stock": 17,
+        "description": "testing book 7",
+        "price": 700,
+        "category": "TRAGEDIA"
+    },
+    {
+        "name": "Testing Book 1",
+        "length": "500",
+        "stock": 10,
+        "description": "testing book 1",
+        "price": 100,
+        "category": "PRZYRODA"
+    },
+    {
+        "name": "Testing Book 2",
+        "length": "502",
+        "stock": 12,
+        "description": "testing book 2",
+        "price": 200,
+        "category": "FANTASY"
+    },
+    {
+        "name": "Testing Book 3",
+        "length": "503",
+        "stock": 13,
+        "description": "testing book 3",
+        "price": 300,
+        "category": "HISTORIA"
+    },
+    {
+        "name": "Testing Book 4",
+        "length": "504",
+        "stock": 14,
+        "description": "testing book 4",
+        "price": 400,
+        "category": "BIOGRAFIA"
+    },
+    {
+        "name": "Testing Book 5",
+        "length": "505",
+        "stock": 15,
+        "description": "testing book 5",
+        "price": 500,
+        "category": "DZIENNIK"
+    },
+    {
+        "name": "Testing Book 6",
+        "length": "506",
+        "stock": 16,
+        "description": "testing book 6",
+        "price": 600,
+        "category": "KOMEDIA"
+    },
+    {
+        "name": "Testing Book 7",
+        "length": "507",
+        "stock": 17,
+        "description": "testing book 7",
+        "price": 700,
+        "category": "TRAGEDIA"
+    },
+    {
+        "name": "Testing Book 8",
+        "length": "508",
+        "stock": 18,
+        "description": "testing book 8",
+        "price": 800,
+        "category": "PRZYRODA"
+    },
+    {
+        "name": "Testing Book 9",
+        "length": "509",
+        "stock": 19,
+        "description": "testing book 9",
+        "price": 900,
+        "category": "FANTASY"
+    },
+    {
+        "name": "Testing Book 10",
+        "length": "510",
+        "stock": 21,
+        "description": "testing book 10",
+        "price": 1000,
+        "category": "HISTORIA"
+    },
+    {
+        "name": "Testing Book 11",
+        "length": "511",
+        "stock": 22,
+        "description": "testing book 11",
+        "price": 1100,
+        "category": "BIOGRAFIA"
+    },
+    {
+        "name": "Testing Book 12",
+        "length": "512",
+        "stock": 23,
+        "description": "testing book 12",
+        "price": 1200,
+        "category": "DZIENNIK"
+    },
+    {
+        "name": "Testing Book 13",
+        "length": "513",
+        "stock": 24,
+        "description": "testing book 13",
+        "price": 1300,
+        "category": "KOMEDIA"
+    },
+    {
+        "name": "Testing Book 14",
+        "length": "514",
+        "stock": 25,
+        "description": "testing book 14",
+        "price": 1400,
+        "category": "TRAGEDIA"
     }
 ]
