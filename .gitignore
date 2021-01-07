@@ -2,10 +2,3 @@
 target/
 out/
 .idea/
-logs/
-accounts-service.log
-baskets-service.log
-maingateway-service.log
-orders-service.log
-products-service.log
-storage-service.log
