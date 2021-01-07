@@ -1,7 +1,79 @@
-{
-  "username": "Testing123clea",
-  "password": "test123",
-  "email": "test@test.pl", 
-  "name": "Nowak",
-  "surname": "Testowy"
-}
+[
+  {
+  "username": "Testing1",
+  "password": "test1",
+  "email": "test1@test.pl", 
+  "name": "Test1",
+  "surname": "Testowy1"
+  },
+  {
+    "username": "Testing2",
+    "password": "test2",
+    "email": "test2@test.pl", 
+    "name": "Test2",
+    "surname": "Testowy2"
+  },
+  {
+    "username": "Testing3",
+    "password": "test3",
+    "email": "test3@test.pl", 
+    "name": "Test3",
+    "surname": "Testowy3"
+  },
+  {
+    "username": "Testing4",
+    "password": "test4",
+    "email": "test4@test.pl", 
+    "name": "Test4",
+    "surname": "Testowy4"
+  },
+  {
+    "username": "Testing5",
+    "password": "test5",
+    "email": "test5@test.pl", 
+    "name": "Test5",
+    "surname": "Testowy5"
+  },
+  {
+    "username": "Testing6",
+    "password": "test6",
+    "email": "test6@test.pl", 
+    "name": "Test6",
+    "surname": "Testowy6"
+  },
+  {
+    "username": "Testing7",
+    "password": "test7",
+    "email": "test7@test.pl", 
+    "name": "Test7",
+    "surname": "Testowy7"
+  },
+  {
+    "username": "Testing8",
+    "password": "test8",
+    "email": "test8@test.pl", 
+    "name": "Test8",
+    "surname": "Testowy8"
+  },
+  {
+    "username": "Testing9",
+    "password": "test9",
+    "email": "test9@test.pl", 
+    "name": "Test9",
+    "surname": "Testowy9"
+  },
+  {
+    "username": "Testing10",
+    "password": "test10",
+    "email": "test10@test.pl", 
+    "name": "Test10",
+    "surname": "Testowy10"
+  },
+  {
+    "username": "Testing11",
+    "password": "test11",
+    "email": "test11@test.pl", 
+    "name": "Test11",
+    "surname": "Testowy11"
+  }
+]

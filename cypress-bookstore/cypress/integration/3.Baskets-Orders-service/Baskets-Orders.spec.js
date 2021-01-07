@@ -1,4 +1,4 @@
-describe('Test of the Basket-service', () => {    
+describe('Test of the Basket-Orders-service', () => {    
     
     const baseURLBasket = Cypress.env('api_server') + Cypress.env('baskets_url');
     const baseURLOrder = Cypress.env('api_server') + Cypress.env('orders_url');
@@ -17,7 +17,7 @@ describe('Test of the Basket-service', () => {
         });
     });
     
-    it('Should properly GET empty basket and save cookie', () => {
+    it('Should properly GET empty basket and save the cookie', () => {
         cy.restoreLocalStorage();
 
         cy.request({
@@ -38,7 +38,7 @@ describe('Test of the Basket-service', () => {
         });
     });
 
-    it('Should properly add to basket, with given cookie, one product', () => {
+    it('Should properly add one product to basket - with given cookie', () => {
         cy.restoreLocalStorage();
 
         cy.getLocalStorage('cookieBasket').then((cookieObject) => {
@@ -60,7 +60,7 @@ describe('Test of the Basket-service', () => {
         });
     });
 
-    it('Should properly delete item from basket, with given cookie', () => {
+    it('Should properly delete item from basket - with given cookie', () => {
         cy.restoreLocalStorage();
         cy.getLocalStorage('cookieBasket').then((cookieObject) => {
             const cookie = JSON.parse(cookieObject);
@@ -90,7 +90,7 @@ describe('Test of the Basket-service', () => {
         });
     });
 
-    it('Should properly add item to basket, with given cookie, and make an order', () => {
+    it('Should properly add item to basket and make an order -  with given cookie', () => {
         cy.restoreLocalStorage();
         cy.getLocalStorage('cookieBasket').then((cookieObject) => {
             const cookie = JSON.parse(cookieObject);

@@ -14,27 +14,10 @@ describe('Test of the Products-service', () => {
             cy.fixture('author').then((author) => {
                 const random = Math.floor(Math.random() * (author.length - 1));
                 const randomAuthor = author[random];
-                cy.request({
-                    method: 'POST',
-                    url: baseURL + 'admin/author',
-                    headers: {
-                        'Authorization': token,
-                    },
-                    form: true,
-                    body: {
-                        'name': randomAuthor.name,
-                        'year': randomAuthor.year,
-                        'description': randomAuthor.description
-                    }
-                    
-                }).then((response) => {
-                    expect(response.status).equal(200);
-                    expect(response.body.message).equal('Added author successfully!');
-                    
-                });
+                cy.addAuthor(token, randomAuthor);
                 cy.request({
                     method: 'GET',
-                    url: baseURL + 'author/name/' +randomAuthor.name
+                    url: baseURL + 'author/name/' + randomAuthor.name
                 }).then((response1) => {
                     expect(response1.status).equal(200);
                     expect(response1.body.name).equal(randomAuthor.name);
@@ -42,9 +25,9 @@ describe('Test of the Products-service', () => {
                     expect(response1.body.description).equal(randomAuthor.description);
                     cy.setLocalStorage('authorID', response1.body.id);
                     cy.saveLocalStorage();
-                })
-            })
-        })
+                });
+            });
+        });
     });
 
     it('Should properly add a book to saved author id', () => {
@@ -54,27 +37,8 @@ describe('Test of the Products-service', () => {
                 cy.fixture('book').then((book) => {
                     const random = Math.floor(Math.random() * (book.length - 1));
                     const randomBook = book[random];
-                    cy.request({
-                        method: 'POST',
-                        url: baseURL + 'admin/book',
-                        headers: {
-                            Authorization: token,
-                        },
-                        form: true,
-                        body: {
-                            'author.id': authorID,
-                            'name': randomBook.name,
-                            'length': randomBook.length,
-                            'stock': randomBook.stock,
-                            'description': randomBook.description,
-                            'price': randomBook.price,
-                            'category': randomBook.category
-                        }
-                    }).then((response) => {
-                        expect(response.status).equal(200);
-                        expect(response.body.message).equal('Added book successfully!');
-                    })
-                })
+                    cy.addBook(token, randomBook, authorID);
+                });
             });
         });
     });
