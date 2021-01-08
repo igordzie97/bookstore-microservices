@@ -2,7 +2,7 @@ version: '3.2'
 services:
     eureka-service:
         container_name: eureka-service
-        image: 127.0.0.1:4900/bookstore/eureka_service:latest
+        image: bookstore/eureka_service:latest
         build:
             context: Eureka-server
             dockerfile: Dockerfile
@@ -14,12 +14,17 @@ services:
 
     main-service:
         container_name: main-gateway
-        image: 127.0.0.1:4900/bookstore/gateway_service:latest
+        image: bookstore/gateway_service:latest
+        deploy:
+          replicas: 1
+          endpoint_mode: dnsrr
         build:
             context: maingateway
             dockerfile: Dockerfile
         ports:
-            - "9091:9091"
+            - target: 9091
+              published: 9091
+              mode: host
         volumes:
           - type: bind
             source: ./logstash/logs/maingateway-service.log
@@ -39,12 +44,17 @@ services:
 
     accounts-service:
         container_name: accounts-service
-        image: 127.0.0.1:4900/bookstore/accounts_service:latest
+        image: bookstore/accounts_service:latest
+        deploy:
+          replicas: 1
+          endpoint_mode: dnsrr
         build:
             context: Accounts-master
             dockerfile: Dockerfile
         ports:
-            - "8081:8081"
+            - target: 8081
+              published: 8081
+              mode: host
         restart: always
         depends_on:
             - mysql-accounts
@@ -56,6 +66,7 @@ services:
             RDS_USERNAME: springuser
             RDS_PASSWORD: Password
             EUREKA_ADDR: eureka-service
+            ZIPKIN_ADDR: zipkin
         volumes:
           - type: bind
             source: ./logstash/logs/accounts-service.log
@@ -67,12 +78,17 @@ services:
 
     products-service:
         container_name: products-service
-        image: 127.0.0.1:4900/bookstore/products_service:latest
+        image: bookstore/products_service:latest
+        deploy:
+          replicas: 1
+          endpoint_mode: dnsrr
         build:
             context: Products-master
             dockerfile: Dockerfile
         ports:
-            - "8084:8084"
+            - target: 8084
+              published: 8084
+              mode: host
         restart: always
         depends_on:
             - mysql-products
@@ -84,6 +100,7 @@ services:
             RDS_USERNAME: springuser
             RDS_PASSWORD: Password
             EUREKA_ADDR: eureka-service
+            ZIPKIN_ADDR: zipkin
         volumes:
           - type: bind
             source: ./logstash/logs/products-service.log
@@ -95,12 +112,17 @@ services:
 
     baskets-service:
         container_name: baskets-service
-        image: 127.0.0.1:4900/bookstore/baskets_service:latest
+        image: bookstore/baskets_service:latest
+        deploy:
+          replicas: 1
+          endpoint_mode: dnsrr
         build:
             context: Baskets-master
             dockerfile: Dockerfile
         ports:
-            - "8082:8082"
+            - target: 8082
+              published: 8082
+              mode: host
         restart: always
         depends_on:
             - mysql-baskets
@@ -111,6 +133,7 @@ services:
             RDS_USERNAME: springuser
             RDS_PASSWORD: Password
             EUREKA_ADDR: eureka-service
+            ZIPKIN_ADDR: zipkin
         volumes:
           - type: bind
             source: ./logstash/logs/baskets-service.log
@@ -122,12 +145,17 @@ services:
 
     orders-service:
         container_name: orders-service
-        image: 127.0.0.1:4900/bookstore/orders_service:latest
+        image: bookstore/orders_service:latest
+        deploy:
+          replicas: 1
+          endpoint_mode: dnsrr
         build:
             context: Orders-master
             dockerfile: Dockerfile
         ports:
-            - "8083:8083"
+            - target: 8083
+              published: 8083
+              mode: host
         restart: always
         depends_on:
             - mysql-orders
@@ -138,6 +166,7 @@ services:
             RDS_USERNAME: springuser
             RDS_PASSWORD: Password
             EUREKA_ADDR: eureka-service
+            ZIPKIN_ADDR: zipkin
         volumes:
           - type: bind
             source: ./logstash/logs/orders-service.log
@@ -149,12 +178,17 @@ services:
 
     storage-service:
         container_name: storage-service
-        image: 127.0.0.1:4900/bookstore/storage_service:latest
+        image: bookstore/storage_service:latest
+        deploy:
+          replicas: 1
+          endpoint_mode: dnsrr
         build:
             context: storage_service
             dockerfile: Dockerfile
         ports:
-            - "8078:8078"
+            - target: 8078
+              published: 8078
+              mode: host
         restart: always
         depends_on:
             - mysql-storage
@@ -165,6 +199,7 @@ services:
             RDS_USERNAME: springuser
             RDS_PASSWORD: Password
             EUREKA_ADDR: eureka-service
+            ZIPKIN_ADDR: zipkin
         volumes:
           - type: bind
             source: ./logstash/logs/storage-service.log
@@ -179,6 +214,8 @@ services:
         container_name: zipkin
         ports:
             - 9411:9411
+        networks:
+          - eureka-network
 
     mysql-accounts:
         image: mysql:5.7

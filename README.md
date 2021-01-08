@@ -112,9 +112,10 @@ Baskets-Orders-service/Baskets-Orders.spec.js - podstawowe testy przepływu skł
 
 # Docker Swarm - jak uruchomić
 1) `docker swarm init` - uruchamia master node swarma
-2) `docker service create --name registry --publish published=4900,target=5000 registry:2` - uruchomienie rejestru jako serwis na docker swarmie
-3) `docker-compose up -d` - tworzy i uruchamia wszystkie kontenery (ważne ze względu na tworzenie obrazów, które później zostaną "zpushowane" do swarma)
-4) `docker-compose down --volumes` - wyłączenie oraz usunięcie kontenerów
-5) `docker-compose push` - push kontenerów do swarma
-6) `docker stack deploy --compose-file docker-compose.yml bookstore` - deployment stacku do swarma
-7) `docker stack services bookstore` - tutaj można sprawdzić stan wszystkich serwisów
+2) `docker-compose build` - tworzy obrazy, które zostaną zdeployowane do stacku
+3) `docker stack deploy --compose-file docker-compose.yml bookstore` - deployment stacku do swarma
+4) `docker stack services bookstore` - tutaj można sprawdzić stan wszystkich serwisów
+
+Usunięcie stacku i wyjście z node'a:
+1) `docker stack rm bookstore` - usunięcie stacku
+2) `docker swarm leave --force` - wyjście z trybu swarm
