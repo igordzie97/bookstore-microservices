@@ -106,9 +106,11 @@ Do uruchomienia - w obrębie głównego folderu:
 1) pobrać potrzebne paczki - npm install
 2) uruchomić cypress - npm run open
 
-Accounts-service/Accounts.spec.js - podstawowe testy serwisu accounts.\
-Products-service/Products.spec.js - podstawowe testy serwisu products.\
-Baskets-Orders-service/Baskets-Orders.spec.js - podstawowe testy przepływu składania zamówienia (serwis baskets + orders).
+Accounts-service/Accounts.spec.js - testy serwisu accounts, które obejmują: rejestrację użytkownika, jego zalogowanie oraz sprawdzenie konta administratora.
+
+Products-service/Products.spec.js - testy serwisu products, które obejmują: dodanie autora, dodanie książki oraz prezentację wszystkich zasobów.
+
+Baskets-Orders-service/Baskets-Orders.spec.js - kompleksowe testy serwisów baskets oraz orders, które obejmują: pobranie książki, utworzenie koszyka oraz dodanie jej do niego, usunięcie książki z koszyka i ponowne jej dodanie, by w ostateczności złożyć i pobrać zamówienie. 
 
 # Docker Swarm - jak uruchomić
 1) `docker swarm init` - uruchamia master node swarma

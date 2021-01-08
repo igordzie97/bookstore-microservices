@@ -17,7 +17,7 @@ describe('Test of the Basket-Orders-service', () => {
         });
     });
     
-    it('Should properly GET empty basket and save the cookie', () => {
+    it('Should properly GET empty basket and save cookie', () => {
         cy.restoreLocalStorage();
 
         cy.request({
@@ -38,7 +38,7 @@ describe('Test of the Basket-Orders-service', () => {
         });
     });
 
-    it('Should properly add one product to basket - with given cookie', () => {
+    it('Should properly add one product to basket - with given cookie,', () => {
         cy.restoreLocalStorage();
 
         cy.getLocalStorage('cookieBasket').then((cookieObject) => {
@@ -90,7 +90,7 @@ describe('Test of the Basket-Orders-service', () => {
         });
     });
 
-    it('Should properly add item to basket and make an order -  with given cookie', () => {
+    it('Should properly add item to basket and make an order - with given cookie', () => {
         cy.restoreLocalStorage();
         cy.getLocalStorage('cookieBasket').then((cookieObject) => {
             const cookie = JSON.parse(cookieObject);
