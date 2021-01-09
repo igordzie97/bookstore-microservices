@@ -115,8 +115,9 @@ Baskets-Orders-service/Baskets-Orders.spec.js - kompleksowe testy serwisów bask
 # Docker Swarm - jak uruchomić
 1) `docker swarm init` - uruchamia master node swarma
 2) `docker-compose build` - tworzy obrazy, które zostaną zdeployowane do stacku
-3) `docker stack deploy --compose-file docker-compose.yml bookstore` - deployment stacku do swarma
-4) `docker stack services bookstore` - tutaj można sprawdzić stan wszystkich serwisów
+3) `docker-compose pull` - pobiera obrazy, które nie posiadają Dockerfile'i
+4) `docker stack deploy --compose-file docker-compose.yml bookstore` - deployment stacku do swarma
+5) `docker stack services bookstore` - tutaj można sprawdzić stan wszystkich serwisów
 
 Usunięcie stacku i wyjście z node'a:
 1) `docker stack rm bookstore` - usunięcie stacku
