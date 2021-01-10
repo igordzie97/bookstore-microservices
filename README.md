@@ -3,6 +3,9 @@ Authors: Adrian Nędza, Igor Dzierwa, Konrad Makuch\
 
 mvn clean package -DskipTests
 
+# Dokumentacja PDF
+https://github.com/igordzie97/bookStore/blob/main/Ksi%C4%99garnia%20internetowa%20-%20dokumentacja.pdf
+
 ###### ZIPKIN:
 jeśli chcemy uruchomić bez docker compose:
 robimy docker run -d -p 9411:9411 openzipkin/zipkin
