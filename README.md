@@ -1,24 +1,15 @@
 # Book Store
-Celem projektu było zrealizowanie 
-Authors: Adrian Nędza, Igor Dzierwa, Konrad Makuch\
+**Autorzy:** Adrian Nędza, Igor Dzierwa, Konrad Makuch
 
-# Dokumentacja PDF
-https://github.com/igordzie97/bookStore/blob/main/Ksi%C4%99garnia%20internetowa%20-%20dokumentacja.pdf
-
-## ZIPKIN:
-Jeśli chcemy uruchomić bez docker compose: `run -d -p 9411:9411 openzipkin/zipkin`
-
-Zipkin odpala się na localhost:9411.
-
-Odpalamy wszystkie serwisy i w zipkinie widzimy logi związane z odpytywaniem poszczególnych serwerów. Trzeba wywołać jakaś akcję, np rejestrację, potem w zipkin kliknąć "run query" i powinno się coś pojawić
-
-Dodane też do docker-compose - jak odpalimy całość to zipkin też się odpali w dockerze.
-
-## Maingateway: 
-http://localhost:9091
-
-## SWAGGER
-http://localhost:9091/swagger-ui.html - jeden endpoint dla wszystkich serwisów
+Celem projektu było stworzenie systemu backendowego realizującego zadania obsługi księgarni internetowej. 
+Architektura systemu oparta jest o paradygmat mikroserwisowy. Mikroserwisy komunikują się pomiędzy sobą wykorzystując FeignClient. Wyodrębnione zostały następujące mikroserwisy:
+1. **Bookstore-Gateway** - odpowiada za przekazywanie zapytań do odpowiednich mmikroserwisów (Zuul Proxy) oraz filtrowanie ich na podstawie uprawnień.
+2. B**ookstore-Products** - realizuje logikę związaną z zasobami dostępnymi w systemie - dodawanie autorów, książek, prezentacja istniejących zasobów.
+3. **Bookstore-Orders** - obsługa oraz rejestr zamówień.
+4. **Bookstore-Baskets** - realizacja logiki związanej z koszykiem - zapamiętywanie zawartości, obliczanie jego wartości, przypisywanie koszyka do użytkownika.
+5. **Bookstore-Accounts** - obsługa rejestracji użytkowników, mechanizm logowania do systemu (JWT).
+6. **Bookstore-Storage** - obsługa zapisu i prezentacji plików.
+7. **Eureka-Service** - rejestr dostępnych mikroserwisów
 
 ## Najważniejsze Endpointy
 
@@ -42,7 +33,24 @@ http://localhost:9091/swagger-ui.html - jeden endpoint dla wszystkich serwisów
 8. **POST /orders-service/order** - sprawdzany jest stan magazynowy, następnie składane jest zamówienie z zapisanym cookie. 
 -Jeśli wykonamy tą metodę z dodanym Bearerem - to doda się paramter Mode:"User Zalogowany" do Order i z accounts-service pobierze się ID zalogowanego użytkownika i też doda się do zamówienia
 
-## Cypress - testy aplikacji
+## Maingateway: 
+http://localhost:9091
+
+## SWAGGER
+Automatyczna dokumentacja wszystkich endpointów, która została zaimplementowana w serwisie Bookstore-Gateway.
+
+http://localhost:9091/swagger-ui.html - jeden endpoint dla wszystkich serwisów
+
+## ZIPKIN:
+Jeśli chcemy uruchomić bez docker compose: `run -d -p 9411:9411 openzipkin/zipkin`
+
+Zipkin odpala się na localhost:9411.
+
+Odpalamy wszystkie serwisy i w zipkinie widzimy logi związane z odpytywaniem poszczególnych serwerów. Trzeba wywołać jakaś akcję, np rejestrację, potem w zipkin kliknąć "run query" i powinno się coś pojawić
+
+Dodane też do docker-compose - jak odpalimy całość to zipkin też się odpali w dockerze.
+
+## Cypress - testy automatyczne aplikacji
 Do uruchomienia - w obrębie głównego folderu:
 1. Pobrać potrzebne paczki - `npm install`
 2. Uruchomić cypress - `npm run open`
@@ -53,7 +61,7 @@ Do uruchomienia - w obrębie głównego folderu:
 
 **Baskets-Orders-service/Baskets-Orders.spec.js** - kompleksowe testy serwisów baskets oraz orders, które obejmują: pobranie książki, utworzenie koszyka oraz dodanie jej do niego, usunięcie książki z koszyka i ponowne jej dodanie, by w ostateczności złożyć i pobrać zamówienie. 
 
-## Docker Swarm - jak uruchomić
+## Docker Swarm - uruchomienie
 1) `docker swarm init` - uruchamia master node swarma
 2) `docker-compose build` - tworzy obrazy, które zostaną zdeployowane do stacku
 3) `docker-compose pull` - pobiera obrazy, które nie posiadają Dockerfile'i
@@ -63,3 +71,6 @@ Do uruchomienia - w obrębie głównego folderu:
 Usunięcie stacku i wyjście z node'a:
 1) `docker stack rm bookstore` - usunięcie stacku
 2) `docker swarm leave --force` - wyjście z trybu swarm
+
+# Dokumentacja PDF
+https://github.com/igordzie97/bookStore/blob/main/Ksi%C4%99garnia%20internetowa%20-%20dokumentacja.pdf
