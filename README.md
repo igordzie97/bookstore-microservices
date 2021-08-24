@@ -1,6 +1,14 @@
 # Book Store
 
 ## Spis Treści
+1. [Cel oraz Architektura](#cel-oraz-architektura)
+2. [Technologie](#technologie)
+3. [Najważniejsze endpointy](#najważniejsze-endpointy)
+4. [Testy automatyczne Cypress](#testy-automatyczne-cypress)
+5. [Zipkin](#zipkin)
+6. [Adresy](#adresy)
+7. [Docker Swarm](#docker-swarm)
+8. [Dokumentacja](#dokumentacja)
 
 ## Cel oraz Architektura
 Celem projektu było stworzenie systemu backendowego realizującego zadania obsługi księgarni internetowej. 
@@ -45,7 +53,7 @@ Architektura systemu oparta jest o paradygmat mikroserwisowy. Mikroserwisy komun
 8. **POST /orders-service/order** - sprawdzany jest stan magazynowy, następnie składane jest zamówienie z zapisanym cookie. 
 -Jeśli wykonamy tą metodę z dodanym Bearerem - to doda się paramter Mode:"User Zalogowany" do Order i z accounts-service pobierze się ID zalogowanego użytkownika i też doda się do zamówienia.
 
-## Testy automatyczne - Cypress
+## Testy automatyczne Cypress
 Testy automatyczne oparte są o javascriptowy framework Cypress, nadający się zarówno do testów frontendu, jak również backendu.
 
 Do uruchomienia - w obrębie folderu cypress-bookstore:
@@ -89,7 +97,7 @@ Usunięcie stacku i wyjście z node'a:
 ## Dokumentacja
 - [Dokumentacja](https://github.com/igordzie97/bookStore/blob/main/Ksi%C4%99garnia%20internetowa%20-%20dokumentacja.pdf)
 
-## Autorzy
+### Autorzy
 - Igor Dzierwa
 - Adrian Nędza
 - Konrad Makuch
