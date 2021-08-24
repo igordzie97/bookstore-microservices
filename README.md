@@ -1,18 +1,30 @@
 # Book Store
-**Autorzy:** Adrian Nędza, Igor Dzierwa, Konrad Makuch
 
+## Spis Treści
+
+## Cel oraz Architektura
 Celem projektu było stworzenie systemu backendowego realizującego zadania obsługi księgarni internetowej. 
 Architektura systemu oparta jest o paradygmat mikroserwisowy. Mikroserwisy komunikują się pomiędzy sobą wykorzystując FeignClient. Wyodrębnione zostały następujące mikroserwisy:
-1. **Bookstore-Gateway** - odpowiada za przekazywanie zapytań do odpowiednich mmikroserwisów (Zuul Proxy) oraz filtrowanie ich na podstawie uprawnień.
-2. B**ookstore-Products** - realizuje logikę związaną z zasobami dostępnymi w systemie - dodawanie autorów, książek, prezentacja istniejących zasobów.
-3. **Bookstore-Orders** - obsługa oraz rejestr zamówień.
-4. **Bookstore-Baskets** - realizacja logiki związanej z koszykiem - zapamiętywanie zawartości, obliczanie jego wartości, przypisywanie koszyka do użytkownika.
-5. **Bookstore-Accounts** - obsługa rejestracji użytkowników, mechanizm logowania do systemu (JWT).
-6. **Bookstore-Storage** - obsługa zapisu i prezentacji plików.
-7. **Eureka-Service** - rejestr dostępnych mikroserwisów
+- **Bookstore-Gateway** - odpowiada za przekazywanie zapytań do odpowiednich mmikroserwisów (Zuul Proxy) oraz filtrowanie ich na podstawie uprawnień.
+- **Bookstore-Products** - realizuje logikę związaną z zasobami dostępnymi w systemie - dodawanie autorów, książek, prezentacja istniejących zasobów.
+- **Bookstore-Orders** - obsługa oraz rejestr zamówień.
+- **Bookstore-Baskets** - realizacja logiki związanej z koszykiem - zapamiętywanie zawartości, obliczanie jego wartości, przypisywanie koszyka do użytkownika.
+- **Bookstore-Accounts** - obsługa rejestracji użytkowników, mechanizm logowania do systemu (JWT).
+- **Bookstore-Storage** - obsługa zapisu i prezentacji plików.
+- **Eureka-Service** - rejestr dostępnych mikroserwisów.
+
+<img width="550" alt="Screenshot 2021-08-15 at 13 28 31" src="https://user-images.githubusercontent.com/34041060/130590312-53528a03-4feb-4281-88b0-dadb29433364.png">
+
+## Technologie
+- **Java 11 + Spring Boot** - backend
+- **FeignClient** - komunikacja między serwisami
+- **ZUUL Proxy** - API Gateway
+- **Eureka Server** - rejestr mikroserwisów
+- **Swagger** - automatyczna dokumentacja metod RestAPI
+- **Elastic, Logstash, Kibana, Zipkin** - monitoring aplikacji
+- **Docker / Docker Swarm** - konteneryzacja
 
 ## Najważniejsze Endpointy
-
 1. **POST /accounts-service/registration** - rejestracja użytkownika, w postaci FormData.
 - username, password, email, name, surname
 
@@ -31,17 +43,24 @@ Architektura systemu oparta jest o paradygmat mikroserwisowy. Mikroserwisy komun
 7. **DELETE /baskets-service/cart/{PRODUCT_ID}** - usunięcie produktu z koszyka.
 
 8. **POST /orders-service/order** - sprawdzany jest stan magazynowy, następnie składane jest zamówienie z zapisanym cookie. 
--Jeśli wykonamy tą metodę z dodanym Bearerem - to doda się paramter Mode:"User Zalogowany" do Order i z accounts-service pobierze się ID zalogowanego użytkownika i też doda się do zamówienia
+-Jeśli wykonamy tą metodę z dodanym Bearerem - to doda się paramter Mode:"User Zalogowany" do Order i z accounts-service pobierze się ID zalogowanego użytkownika i też doda się do zamówienia.
 
-## Maingateway: 
-http://localhost:9091
+## Testy automatyczne - Cypress
+Testy automatyczne oparte są o javascriptowy framework Cypress, nadający się zarówno do testów frontendu, jak również backendu.
 
-## SWAGGER
-Automatyczna dokumentacja wszystkich endpointów, która została zaimplementowana w serwisie Bookstore-Gateway.
+Do uruchomienia - w obrębie folderu cypress-bookstore:
 
-http://localhost:9091/swagger-ui.html - jeden endpoint dla wszystkich serwisów
+`npm install` - ściągnięcie wszystkich potrzebnych paczek (node_modules), które są zdefiniowane w package.json.
 
-## ZIPKIN:
+`npm run open` - uruchomienie cypress test runner.
+
+**Accounts-service/Accounts.spec.js** - testy serwisu accounts, które obejmują: rejestrację użytkownika, jego zalogowanie oraz sprawdzenie konta administratora.
+
+**Products-service/Products.spec.js** - testy serwisu products, które obejmują: dodanie autora, dodanie książki oraz prezentację wszystkich zasobów.
+
+**Baskets-Orders-service/Baskets-Orders.spec.js** - kompleksowe testy serwisów baskets oraz orders, które obejmują: pobranie książki, utworzenie koszyka oraz dodanie jej do niego, usunięcie książki z koszyka i ponowne jej dodanie, by w ostateczności złożyć i pobrać zamówienie. 
+
+## Zipkin
 Jeśli chcemy uruchomić bez docker compose: `run -d -p 9411:9411 openzipkin/zipkin`
 
 Zipkin odpala się na localhost:9411.
@@ -50,18 +69,13 @@ Odpalamy wszystkie serwisy i w zipkinie widzimy logi związane z odpytywaniem po
 
 Dodane też do docker-compose - jak odpalimy całość to zipkin też się odpali w dockerze.
 
-## Cypress - testy automatyczne aplikacji
-Do uruchomienia - w obrębie głównego folderu:
-1. Pobrać potrzebne paczki - `npm install`
-2. Uruchomić cypress - `npm run open`
+## Adresy
+- Main gateway: http://localhost:9091
+- Swagger: http://localhost:9091/swagger-ui.html
+- Zipkin: http://localhost:9411
+- Kibana: http://localhost:5601 (elastic / password)
 
-**Accounts-service/Accounts.spec.js** - testy serwisu accounts, które obejmują: rejestrację użytkownika, jego zalogowanie oraz sprawdzenie konta administratora.
-
-**Products-service/Products.spec.js** - testy serwisu products, które obejmują: dodanie autora, dodanie książki oraz prezentację wszystkich zasobów.
-
-**Baskets-Orders-service/Baskets-Orders.spec.js** - kompleksowe testy serwisów baskets oraz orders, które obejmują: pobranie książki, utworzenie koszyka oraz dodanie jej do niego, usunięcie książki z koszyka i ponowne jej dodanie, by w ostateczności złożyć i pobrać zamówienie. 
-
-## Docker Swarm - uruchomienie
+## Docker Swarm
 1) `docker swarm init` - uruchamia master node swarma
 2) `docker-compose build` - tworzy obrazy, które zostaną zdeployowane do stacku
 3) `docker-compose pull` - pobiera obrazy, które nie posiadają Dockerfile'i
@@ -72,5 +86,10 @@ Usunięcie stacku i wyjście z node'a:
 1) `docker stack rm bookstore` - usunięcie stacku
 2) `docker swarm leave --force` - wyjście z trybu swarm
 
-# Dokumentacja PDF
-https://github.com/igordzie97/bookStore/blob/main/Ksi%C4%99garnia%20internetowa%20-%20dokumentacja.pdf
+## Dokumentacja
+- [Dokumentacja](https://github.com/igordzie97/bookStore/blob/main/Ksi%C4%99garnia%20internetowa%20-%20dokumentacja.pdf)
+
+## Autorzy
+- Igor Dzierwa
+- Adrian Nędza
+- Konrad Makuch
