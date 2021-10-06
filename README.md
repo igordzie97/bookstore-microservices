@@ -15,12 +15,12 @@
 The project puropse was to create a backend system which will support book store activities.
 
 ## Architecture
-System architecture is based on microservice. Communication between them is done using Feign Client.
+System architecture is based on microservices. Communication between them is done using Feign Client.
 
 The following microservices are highlighted:
 - **Bookstore-Gateway** - gateway service that provides dynamic routing between microservices, filtering based on permissions 
 - **Bookstore-Products** - products service - adding authors, books and data presentation
-- **Bookstore-Orders** - orders service
+- **Bookstore-Orders** - orders service - making order based on basket
 - **Bookstore-Baskets** - basket service - assigning basket to user, value calculation
 - **Bookstore-Accounts** - registration, authentification and authorization service
 - **Bookstore-Storage** - save and file presentation service
@@ -29,33 +29,33 @@ The following microservices are highlighted:
 <img width="550" alt="Screenshot 2021-08-15 at 13 28 31" src="https://user-images.githubusercontent.com/34041060/130590312-53528a03-4feb-4281-88b0-dadb29433364.png">
 
 ## Technologies
-- **Java 11 + Spring Boot** - Backend
+- **Java 11 + Spring Boot** - backend
 - **FeignClient** - communication between microservices
-- **ZUUL Proxy** - API Gateway
+- **ZUUL Proxy** - API gateway
 - **Eureka Server** - microservices register
 - **Swagger** - automated documentation for describing RESTful APIs expressed using JSON
 - **Elastic, Logstash, Kibana, Zipkin** - application monitoring
 - **Docker / Docker Swarm** - app containerization
 
 ## Most important endpoint
-1. **POST /accounts-service/registration** - rejestracja użytkownika, w postaci FormData.
+1. **POST /accounts-service/registration** - user registration (FormData interface)
 - username, password, email, name, surname
 
-2. **POST /accounts-service/auth** - autoryzacja użytkownika, w postaci FormData
+2. **POST /accounts-service/auth** - user authentication (FormData interface)
 - username, password
-- Jako odpowiedź dostajemy Bearer Token, wykorzystywany do reszty requestów, w którym "zaszyta" jest jedna z 4 ról: admin, employee, user, notRegisteredUser.
+- Bearer token as a response. Token is attached to every request. It has one of four roles encoded: admin, employee, user, notRegisteredUser.
  
-3. **POST /products-service/admin/author** - dodanie autora
+3. **POST /products-service/admin/author** - adding author
 
-4. **POST /products-service/admin/book** - dodanie książki
+4. **POST /products-service/admin/book** - adding book
 
-5. **GET /baskets-service/cart** - utworzenie koszyka, podczas którego dopisuje się cookie z Id koszyka, które jest aumtoatycznie dodawane do kolejnych requestów.
+5. **GET /baskets-service/cart** - creating basket - utworzenie koszyka, podczas którego dopisuje się cookie z Id koszyka, które jest aumtoatycznie dodawane do kolejnych requestów.
 
-6. **POST /baskets-service/cart/{PRODUCT_ID}** - dodanie produktu do koszyka.
+6. **POST /baskets-service/cart/{PRODUCT_ID}** - adding product to basket.
 
-7. **DELETE /baskets-service/cart/{PRODUCT_ID}** - usunięcie produktu z koszyka.
+7. **DELETE /baskets-service/cart/{PRODUCT_ID}** - deleting product from basket
 
-8. **POST /orders-service/order** - sprawdzany jest stan magazynowy, następnie składane jest zamówienie z zapisanym cookie. 
+9. **POST /orders-service/order** - checking products availability and creating an order based on saved cookie
 -Jeśli wykonamy tą metodę z dodanym Bearerem - to doda się paramter Mode:"User Zalogowany" do Order i z accounts-service pobierze się ID zalogowanego użytkownika i też doda się do zamówienia.
 
 ## Cypress Automated Tests
