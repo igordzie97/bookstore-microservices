@@ -12,16 +12,16 @@
 9. [Documentation](#documentation)
 
 ## Description
-The project puropse was to create a backend system which will support book store activities.
+The project puropse was to create the backend system which will support book store activities.
 
 ## Architecture
 System architecture is based on microservices. Communication between them is done using Feign Client.
 
 The following microservices are highlighted:
-- **Bookstore-Gateway** - gateway service that provides dynamic routing between microservices, filtering based on permissions 
-- **Bookstore-Products** - products service - adding authors, books and data presentation
-- **Bookstore-Orders** - orders service - making order based on basket
-- **Bookstore-Baskets** - basket service - assigning basket to user, value calculation
+- **Bookstore-Gateway** - gateway service that provides dynamic routing between microservices and filtering based on permissions 
+- **Bookstore-Products** - products service, adding authors, books and data presentation
+- **Bookstore-Orders** - orders service, making order based on created basket
+- **Bookstore-Baskets** - basket service, assigning basket to user, value calculation
 - **Bookstore-Accounts** - registration, authentification and authorization service
 - **Bookstore-Storage** - save and file presentation service
 - **Eureka-Service** - holds the information about all available microservies
@@ -33,7 +33,7 @@ The following microservices are highlighted:
 - **FeignClient** - communication between microservices
 - **ZUUL Proxy** - API gateway
 - **Eureka Server** - microservices register
-- **Swagger** - automated documentation for describing RESTful APIs expressed using JSON
+- **Swagger** - automated documentation for describing RESTful APIs (expressed using JSON)
 - **Elastic, Logstash, Kibana, Zipkin** - application monitoring
 - **Docker / Docker Swarm** - app containerization
 
@@ -49,34 +49,30 @@ The following microservices are highlighted:
 
 4. **POST /products-service/admin/book** - adding book
 
-5. **GET /baskets-service/cart** - creating basket - utworzenie koszyka, podczas którego dopisuje się cookie z Id koszyka, które jest aumtoatycznie dodawane do kolejnych requestów.
+5. **GET /baskets-service/cart** - creating basket, cookie with basket id is saved for using in next requests
 
 6. **POST /baskets-service/cart/{PRODUCT_ID}** - adding product to basket.
 
 7. **DELETE /baskets-service/cart/{PRODUCT_ID}** - deleting product from basket
 
-9. **POST /orders-service/order** - checking products availability and creating an order based on saved cookie
--Jeśli wykonamy tą metodę z dodanym Bearerem - to doda się paramter Mode:"User Zalogowany" do Order i z accounts-service pobierze się ID zalogowanego użytkownika i też doda się do zamówienia.
+9. **POST /orders-service/order** - checking products availability and creating the order based on saved cookie
+- when we send request with token attached - in the response we will also see the ID of logged user.
 
 ## Cypress Automated Tests
-Testy automatyczne oparte są o javascriptowy framework Cypress, nadający się zarówno do testów frontendu, jak również backendu.
+Automated tests are based on JavaScript framework, Cypress. It suites really well for both frontend and backend automation.
 
-Do uruchomienia - w obrębie folderu cypress-bookstore:
+Setting up (within cypress-bookstore folder):
+- `npm install` - installing all modules which are defined in package.json
+- `npm run open` - open Cypress Test Runner.
 
-`npm install` - ściągnięcie wszystkich potrzebnych paczek (node_modules), które są zdefiniowane w package.json.
+**Accounts-service/Accounts.spec.js** - tests of accounts service: user registration, signing in, admin account check.
 
-`npm run open` - uruchomienie cypress test runner.
+**Products-service/Products.spec.js** - tests of products service: adding author, adding book, resources presentation.
 
-**Accounts-service/Accounts.spec.js** - testy serwisu accounts, które obejmują: rejestrację użytkownika, jego zalogowanie oraz sprawdzenie konta administratora.
-
-**Products-service/Products.spec.js** - testy serwisu products, które obejmują: dodanie autora, dodanie książki oraz prezentację wszystkich zasobów.
-
-**Baskets-Orders-service/Baskets-Orders.spec.js** - kompleksowe testy serwisów baskets oraz orders, które obejmują: pobranie książki, utworzenie koszyka oraz dodanie jej do niego, usunięcie książki z koszyka i ponowne jej dodanie, by w ostateczności złożyć i pobrać zamówienie. 
+**Baskets-Orders-service/Baskets-Orders.spec.js** - complex tests of baskets and orders services: getting specific book, creating basket, adding and removing products from basket, making orders based on specific basket.
 
 ## Zipkin
-Jeśli chcemy uruchomić bez docker compose: `run -d -p 9411:9411 openzipkin/zipkin`
-
-Zipkin odpala się na localhost:9411.
+Setting up without docker compose: `run -d -p 9411:9411 openzipkin/zipkin`
 
 Odpalamy wszystkie serwisy i w zipkinie widzimy logi związane z odpytywaniem poszczególnych serwerów. Trzeba wywołać jakaś akcję, np rejestrację, potem w zipkin kliknąć "run query" i powinno się coś pojawić
 
