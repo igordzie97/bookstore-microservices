@@ -29,13 +29,13 @@ The following microservices are highlighted:
 <img width="550" alt="Screenshot 2021-08-15 at 13 28 31" src="https://user-images.githubusercontent.com/34041060/130590312-53528a03-4feb-4281-88b0-dadb29433364.png">
 
 ## Technologies
-- **Java 11 + Spring Boot** - backend
-- **FeignClient** - communication between microservices
+- **Java 11 + Spring Boot** - Backend
+- **FeignClient** - Communication between microservices
 - **ZUUL Proxy** - API gateway
-- **Eureka Server** - microservices register
-- **Swagger** - automated documentation for describing RESTful APIs (expressed using JSON)
-- **Elastic, Logstash, Kibana, Zipkin** - application monitoring
-- **Docker / Docker Swarm** - app containerization
+- **Eureka Server** - Microservices register
+- **Swagger** - Automated documentation for describing RESTful APIs (expressed using JSON)
+- **Elastic, Logstash, Kibana, Zipkin** - Application monitoring
+- **Docker / Docker Swarm** - App containerization
 
 ## Most important endpoints
 1. **POST /accounts-service/registration** - user registration (FormData interface).
