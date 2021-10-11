@@ -12,7 +12,7 @@
 9. [Documentation](#documentation)
 
 ## Description
-The project puropse is to create the backend system which will support the book store activities.
+The project puropse is to create the backend system which will support the bookstore activities.
 
 ## Architecture
 System architecture is based on microservices. Communication between them is done using Feign Client.
