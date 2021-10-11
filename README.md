@@ -1,4 +1,4 @@
-# Book Store
+# BookStore
 
 ## Table of Consents
 1. [Description](#description)
