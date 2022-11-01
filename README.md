@@ -1,5 +1,7 @@
 # BookStore
 
+Project was transferred from an old account - [igordzie97](https://github.com/igordzie97)
+
 ## Table of Consents
 1. [Description](#description)
 2. [Architecture](#architecture)
